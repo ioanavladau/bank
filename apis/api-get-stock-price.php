@@ -11,5 +11,5 @@
   // echo '<script>$("body").fadeOut(5000)</script>';
   // rand(min, max)
   // echo rand(0, 10);
-
-  echo '{"status": 1, "price": "10", "name": "ABC"}';
+  $iStockPrice = rand(0, 100);
+  echo '{"status": 1, "price": '.$iStockPrice. ', "name": "ABC"}';
