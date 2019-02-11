@@ -12,6 +12,18 @@
   
   echo json_encode($jClient);
 
+  $sSignupPassword = 'A1';
+  $sSignupPasswordHashed = password_hash($sSignupPassword, PASSWORD_DEFAULT);
+  $sLoginPassword = 'A1';
+
+  $bSuccess = password_verify($sLoginPassword, $sSignupPasswordHashed);
+  
+  if($bSuccess) {
+    echo "pwds match";
+  } else {
+    echo "pwds do not match";
+  }
+
 
   // var_dump($jClient);
   // print_r($jClient);

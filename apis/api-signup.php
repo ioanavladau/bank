@@ -26,6 +26,9 @@
   $jClient->name = $_POST['txtSignupName'];
   $jClient->lastName = $_POST['txtSignupLastName'];
   $jClient->email = strtolower($_POST['txtSignupEmail']);
+  $jClient->cpr = $_POST['txtSignupCPR'];
+  $jClient->password = password_hash($_POST['txtSignupPassword'], PASSWORD_DEFAULT);
+  // unset($jClient->password);
   $jClient->transactions = [];
   $jClient->signupDate = time();
   $jClient->active = 0;
