@@ -8,6 +8,7 @@
     <input name="txtSignupEmail" id="txtSignupEmail" type="text" placeholder="email" value="a@a.com">
     <input name="txtSignupCPR" id="txtSignupCPR" type="text" placeholder="cpr" value="1234567890">
     <input name="txtSignupPassword" id="txtSignupPassword" type="password" placeholder="password">
+    <input name="txtSignupConfirmedPassword" id="txtSignupConfirmedPassword" type="password" placeholder="retype password">
     <button>signup</button>
   </form>
 

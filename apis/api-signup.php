@@ -13,10 +13,15 @@
   // no header redirects in the API!!!
 
   // if you echo more than one time you need to exit()!!!!
-  if( empty($_POST['txtSignupName'] && $_POST['txtSignupLastName'])){
+  if( empty($_POST['txtSignupName'] && $_POST['txtSignupLastName'] )){
     echo '{"status": 0, "code": '.__LINE__.', "message": "error"}';
     exit;
     // header('Location: ../signup');
+  }
+
+  if( $_POST['txtSignupPassword'] != $_POST['txtSignupConfirmedPassword'] ){
+    echo '{"status": 0, "code": '.__LINE__.', "message": "error"}';
+    exit;
   }
 
 
@@ -28,6 +33,8 @@
   $jClient->email = strtolower($_POST['txtSignupEmail']);
   $jClient->cpr = $_POST['txtSignupCPR'];
   $jClient->password = password_hash($_POST['txtSignupPassword'], PASSWORD_DEFAULT);
+  
+  
   // unset($jClient->password);
   $jClient->transactions = [];
   $jClient->signupDate = time();

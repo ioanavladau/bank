@@ -16,6 +16,7 @@
   $sSignupPasswordHashed = password_hash($sSignupPassword, PASSWORD_DEFAULT);
   $sLoginPassword = 'A1';
 
+  // password_verify(original pwd, pwd hashed)
   $bSuccess = password_verify($sLoginPassword, $sSignupPasswordHashed);
   
   if($bSuccess) {
