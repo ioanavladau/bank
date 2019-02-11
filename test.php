@@ -1,7 +1,21 @@
 <?php
 
   // HTML page and server sends you data back
+  $jClient = new stdClass(); //json_decode('{}')
+  $jClient->id = uniqid();
+  $jClient->name = 'A';
+  $jClient->transactions = [];
+  $jClient->signupDate = time();
+  $jClient->active = 0;
+  $jClient->activationKey = uniqid().'-'.uniqid();
+  // $jClient->activationKey = uniqid('KEY' ,true);
   
+  echo json_encode($jClient);
+
+
+  // var_dump($jClient);
+  // print_r($jClient);
+
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +78,7 @@
       .fail(function(){
         console.log('ERROR');
       })
-    }, 2000);
+    }, 5000);
 
 
 
