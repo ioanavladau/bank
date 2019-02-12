@@ -8,6 +8,25 @@
     }
     
     $jData = $jData->data;
+  foreach( $jData as $sKey=>$jClient ){
+    echo $sKey.json_encode($jClient);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // TO AVOID REMOVING THE CODE, THE CODE AFTER EXIT() WILL NEVER RUN
+    exit();
 
     $sLoggedUserId = 'ID1';
     
@@ -26,4 +45,3 @@
     echo "<div>Name is {$jData->ID3->name} </div>";
     echo "<div>Phone is {$jData->ID3->phone}</div>";
     echo "<div>Balace is {$jData->ID3->balance}</div>";
-
