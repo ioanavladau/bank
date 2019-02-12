@@ -1,1 +1,1 @@
-{"data":{"12345678":{"name":"AA","lastName":"BB","email":"a@a.com","password":"$2y$10$c2wd4ioF5hyjZZTiFvNqqOzpg6owT0PL\/NiG\/CQNDFdht0HgQokTi","cpr":"1234567890","transactions":{},"balance":0}}}
+{"data":{"12345678":{"name":"aa","lastName":"AA","email":"a@a.com","password":"$2y$10$qAL1EENFKM2C1fFil\/IoveZv8enHIvyR7qf\/hzTsYdHih\/ddv.MRi","cpr":"1234567890","balance":0,"transactions":{}}}}

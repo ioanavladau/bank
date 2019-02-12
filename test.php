@@ -9,12 +9,36 @@
     
     $jData = $jData->data;
   foreach( $jData as $sKey=>$jClient ){
-    echo $sKey.json_encode($jClient);
+    // echo $sKey.json_encode($jClient);
   }
 
+  echo checkCpr('011396-1345');
 
-
-
+  // gender: fem 0, male 1
+  function checkCpr($cpr)
+  {
+      // remove spaces and uppercase it
+      $preg = "/^[0-3][0-9][0-1]\d{3}-\d{4}?/";
+      if (preg_match($preg, $cpr)) {
+          $cpr           = str_replace('-', '', $cpr);
+          $y = substr($cpr, -1);
+          switch ($gender) {
+          case 'M':
+              $genderOK = (($y % 2) == 1);
+              break;
+          case 'F':
+              $genderOK = (($y % 2) == 0);
+              break;
+          default:
+              $genderOK = true;
+              break;
+          }
+          return $genderOK;
+      } else {
+          return false;
+      }
+  }
+  echo 'x';
 
 
 

@@ -27,9 +27,8 @@
 
   // validate email
   $sEmail = $_POST['txtSignupEmail'] ?? '';
-  if (!filter_var($sEmail, FILTER_VALIDATE_EMAIL)) {
-    { sendResponse(0, __LINE__); }
-  }
+  if ( ! filter_var($sEmail, FILTER_VALIDATE_EMAIL)) { sendResponse(0, __LINE__); }
+
   // if( empty($sEmail) ) { sendResponse(0, __LINE__); }
   // if( strlen($sEmail) < 5 ) { sendResponse(0, __LINE__); }
   // if( strlen($sEmail) > 30 ) { sendResponse(0, __LINE__); }
@@ -40,13 +39,15 @@
   if( strlen($sPassword) < 6 ) { sendResponse(0, __LINE__); }
   if( strlen($sPassword) > 50 ) { sendResponse(0, __LINE__); }
   
-
+  // check if passwords match
   $sConfirmedPassword = $_POST['txtSignupConfirmedPassword'] ?? '';
+  if( empty($sPassword) ) { sendResponse(0, __LINE__); }
   if( $sPassword != $sConfirmedPassword ) { sendResponse(0, __LINE__); }
 
+  // validate CPR
   $sCpr = $_POST['txtSignupCpr'] ?? '';
   if( empty($sCpr) ) { sendResponse(0, __LINE__); }
-  if( is_numeric($sCpr) == FALSE ) { sendResponse(0, __LINE__); }
+  if( ctype_digit($sCpr) == FALSE ) { sendResponse(0, __LINE__); }
   if( strlen($sCpr) != 10 ) { sendResponse(0, __LINE__); }
 
   // // "111": { "name": "A" }
@@ -60,11 +61,12 @@
   $jClient->email = $sEmail;
   $jClient->password = password_hash($sPassword, PASSWORD_DEFAULT);
   $jClient->cpr = $sCpr;
-  $jClient->balance = 0;
+  $jClient->accounts = new stdClass();
   $jClient->transactions = new stdClass();
 
   // add all client data to the key which is phone number
   $jInnerData->$sPhone = $jClient;
+  
 
 
   $sData = json_encode($jData);
@@ -87,3 +89,11 @@
   }
 
   sendResponse(1, __LINE__);
+
+
+  // ORIGINAL CLIENTS.JSON FILE
+  // {
+  //   "data": {
+
+  //   }
+  // }
