@@ -1,104 +1,29 @@
 <?php
 
-  // HTML page and server sends you data back
-  $jClient = new stdClass(); //json_decode('{}')
-  $jClient->id = uniqid();
-  $jClient->name = 'A';
-  $jClient->transactions = [];
-  $jClient->signupDate = time();
-  $jClient->active = 0;
-  $jClient->activationKey = uniqid().'-'.uniqid();
-  // $jClient->activationKey = uniqid('KEY' ,true);
-  
-  echo json_encode($jClient);
+    $sData = file_get_contents('clients.json');
+    $jData = json_decode($sData);
+    // check if the conversion is correct
+    if( $jData == null ){
+      echo 'Error, check the database';
+    }
+    
+    $jData = $jData->data;
 
-  $sSignupPassword = 'A1';
-  $sSignupPasswordHashed = password_hash($sSignupPassword, PASSWORD_DEFAULT);
-  $sLoginPassword = 'A1';
+    $sLoggedUserId = 'ID1';
+    
+    $sLoggedName = $jData->$sLoggedUserId->name;
+    $sLoggedPhone = $jData->$sLoggedUserId->phone;
+    $iTransferAmount = 1;
+    $jData->$sLoggedUserId->balance -= $iTransferAmount;
+    $sLoggedBalance = $jData->$sLoggedUserId->balance;
 
-  // password_verify(original pwd, pwd hashed)
-  $bSuccess = password_verify($sLoginPassword, $sSignupPasswordHashed);
-  
-  if($bSuccess) {
-    echo "pwds match";
-  } else {
-    echo "pwds do not match";
-  }
+    echo "<div>Name is $sLoggedName</div>";
+    echo "<div>Phone is $sLoggedPhone</div>";
+    echo "<div>Balace is $sLoggedBalance</div>";
+    // echo "<div>Balace is {$jData->$sLoggedUserId->balance} </div>";
 
+    $jData->ID3->balance += $iTransferAmount;
+    echo "<div>Name is {$jData->ID3->name} </div>";
+    echo "<div>Phone is {$jData->ID3->phone}</div>";
+    echo "<div>Balace is {$jData->ID3->balance}</div>";
 
-  // var_dump($jClient);
-  // print_r($jClient);
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>AJAX</title>
-</head>
-<body>
-  <div>
-    The stock name is: <span id="lblStockName"></span>
-  </div>
-
-  <div>
-    The stock price is: <span id="lblStockPrice"></span>
-  </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!-- jquery uses xmlhttprequest behind the scenes -->
-  <script>
-    // xmlhttprequest
-    // fetch
-    // $.ajax().done().fail()
-
-    //     $.ajax({
-    //        method: ''
-    //      })
-
-    // by default $.ajax uses method: 'GET'
-    // $('#lblData').text(sStockPrice); TEXT instead of HTML to get rid of the script tag
-    // TEXT protects you for script injections
-
-    // runs one time every x amount of seconds
-    // runs every x amount of seconds
-
-    // setInterval(function(){
-
-    // }, interval);
-
-    setInterval(() => {
-      $.ajax({
-        method: 'GET',
-        url: 'apis/api-get-stock-price.php',
-        dataType: 'JSON'
-      })
-      .done(function( jData ){
-        // convert sData to jData
-        // let jData = JSON.parse(sData); -> REPLACED WITH dataType: 'JSON'
-        console.log(jData);
-        if( jData.status == 1 ){
-          $('#lblStockName').text(jData.name);
-          $('#lblStockPrice').text(jData.price);
-        }else{
-          console.log("SOMETHING IS WRONG");
-        }
-        // $('#lblData').text(sStockPrice);
-      })
-      .fail(function(){
-        console.log('ERROR');
-      })
-    }, 5000);
-
-
-
-
-
-  </script>
-
-
-</body>
-</html>
