@@ -55,6 +55,8 @@
   // $jClient->$sPhone = new stdClass(); // '{}'
   // $jClient->$sPhone->name = $sName; // I invent a key called "name" and I assign it the value passed via POST
 
+  $sUniqueAccount = uniqid();
+
   $jClient = new stdClass();
   $jClient->name = $sName;
   $jClient->lastName = $sLastName;
@@ -62,11 +64,12 @@
   $jClient->password = password_hash($sPassword, PASSWORD_DEFAULT);
   $jClient->cpr = $sCpr;
   $jClient->accounts = new stdClass();
+  $jClient->accounts->$sUniqueAccount = new stdClass();
+  $jClient->accounts->$sUniqueAccount->balance = 0;
   $jClient->transactions = new stdClass();
 
   // add all client data to the key which is phone number
   $jInnerData->$sPhone = $jClient;
-  
 
 
   $sData = json_encode($jData);
