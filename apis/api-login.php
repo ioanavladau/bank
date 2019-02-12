@@ -1,22 +1,31 @@
 <?php
 
-  ini_set('display_errors', 0);
+  ini_set('display-errors', 0);
 
-  // defensive coding! 
+  $sPhone = $_POST['txtLoginPhone'] ?? '';
+  if( empty($sPhone) ) { sendResponse(0, __LINE__); }
+  if( ctype_digit($sPhone) == FALSE ) { sendResponse(0, __LINE__); }
+  if( strlen($sPhone) != 8 ) { sendResponse(0, __LINE__); }
 
-  $sUsername = $_POST['txtLoginUsername'];
-  if( strlen($sUsername) < 2 || strlen($sUsername) > 20 ){
-    sendResponse(0, __LINE__);
-  }
+  $sPassword = $_POST['txtLoginPassword'] ?? '';
+  if( empty($sPassword) ) { sendResponse(0, __LINE__); }
+  if( strlen($sPassword) < 4 ) { sendResponse(0, __LINE__); }
+  if( strlen($sPassword) > 50 ) { sendResponse(0, __LINE__); }
 
-  // different if statements for checking different conditions
+  $sData = file_get_contents('../data/clients.json');
+  $jData = json_decode($sData);
+  if( $jData == null ){ sendResponse(0, __LINE__); }
+  $jInnerData = $jData->data;
 
-  $sPassword = $_POST['txtLoginPassword'];
-  if( strlen($sPassword) < 4 || strlen($sPassword) > 50 ){
-    sendResponse(0, __LINE__);
-  }
+  // if( !isset($jInnerData->$sPhone)){ sendResponse(0, __LINE__); }
+  if( !password_verify( $sPassword, $jInnerData->$sPhone->password ) ){ sendResponse(0, __LINE__); }
 
+  // SUCCESS
+  session_start();
+  $_SESSION['sUserId'] = $sPhone;
   sendResponse(1, __LINE__);
+
+
 
   // **************************************************
 

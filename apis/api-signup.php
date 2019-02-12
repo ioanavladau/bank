@@ -1,10 +1,5 @@
 <?php
 
-  $sData = file_get_contents('../data/clients.json');
-  $jData = json_decode($sData);
-  if( $jData == null ){ sendResponse(0, __LINE__); }
-  $jInnerData = $jData->data;
-
   // validate phone
   $sPhone = $_POST['txtSignupPhone'] ?? '';
   if( empty($sPhone) ) { sendResponse(0, __LINE__); }
@@ -50,22 +45,40 @@
   if( ctype_digit($sCpr) == FALSE ) { sendResponse(0, __LINE__); }
   if( strlen($sCpr) != 10 ) { sendResponse(0, __LINE__); }
 
+  $sData = file_get_contents('../data/clients.json');
+  $jData = json_decode($sData);
+  if( $jData == null ){ sendResponse(0, __LINE__); }
+  $jInnerData = $jData->data;
+
   // // "111": { "name": "A" }
   // $jClient = new stdClass(); // json object
   // $jClient->$sPhone = new stdClass(); // '{}'
   // $jClient->$sPhone->name = $sName; // I invent a key called "name" and I assign it the value passed via POST
 
-  $sUniqueAccount = uniqid();
-
+  
   $jClient = new stdClass();
   $jClient->name = $sName;
   $jClient->lastName = $sLastName;
   $jClient->email = $sEmail;
   $jClient->password = password_hash($sPassword, PASSWORD_DEFAULT);
   $jClient->cpr = $sCpr;
+  
+  /*
+  "accounts": { 
+    "5c62b82d9969d": { "balance": 0 } 
+  },
+  */
+  
+  // $jClient->accounts = new stdClass();
+  // $jClient->accounts->$sAccountId = new stdClass();
+  // $jClient->accounts->$sAccountId->balance = 0;
+  
   $jClient->accounts = new stdClass();
-  $jClient->accounts->$sUniqueAccount = new stdClass();
-  $jClient->accounts->$sUniqueAccount->balance = 0;
+  $jAccount = new stdClass();
+  $jAccount->balance = 0;
+  $sAccountId = uniqid();
+  $jClient->accounts->$sAccountId = $jAccount;
+
   $jClient->transactions = new stdClass();
 
   // add all client data to the key which is phone number
@@ -94,7 +107,7 @@
   sendResponse(1, __LINE__);
 
 
-  // ORIGINAL CLIENTS.JSON FILE
+  // ORIGINAL BLUEPRINT CLIENTS.JSON FILE
   // {
   //   "data": {
 
