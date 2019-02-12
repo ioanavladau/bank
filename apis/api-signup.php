@@ -61,8 +61,10 @@
   $jClient->password = password_hash($sPassword, PASSWORD_DEFAULT);
   $jClient->cpr = $sCpr;
   $jClient->balance = 0;
+  $jClient->transactions = new stdClass();
+
+  // add all client data to the key which is phone number
   $jInnerData->$sPhone = $jClient;
-  $jInnerData->$sPhone->transactions = new stdClass();
 
 
   $sData = json_encode($jData);
