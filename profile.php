@@ -48,3 +48,18 @@ $jClient = $jInnerData->$sUserId;
   </p>
 </body>
 </html>
+
+
+<!-- {
+  "data": {
+    "20345678": {
+      "name": "aa",
+      "lastName": "AA",
+      "email": "a@a.com",
+      "password": "$2y$10$TiwoSjdiBpLKSRNqBoVXb.a59BJDkuWAOXmg2RZALYZSycxvLwSvq",
+      "cpr": "1234567890",
+      "accounts": { "5c62ba3825e92": { "balance": 0 } },
+      "transactions": {}
+    }
+  }
+} -->
