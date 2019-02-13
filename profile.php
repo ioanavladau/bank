@@ -14,40 +14,28 @@ if( $jData == null ) { echo 'System update'; }
 $jInnerData =$jData->data;
 $jClient = $jInnerData->$sUserId;
 
+require_once 'top.php';
+
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
   <h1>PROFILE</h1>
-  <p>Phone: 
-    <?= 
-      $sUserId;
-    ?>
-  </p>
-  <p>Name:     
-    <?= 
-      $jClient->name;
-    ?>
-    </p>
-  <p>Last name:    
-    <?= 
-      $jClient->lastName;
-    ?>
-  </p>
-  <p>Email:    
-    <?= 
-      $jClient->email;
-    ?>
-  </p>
-</body>
-</html>
+  <p>Phone: <?= $sUserId; ?></p>
+  <p>Name: <?= $jClient->name; ?></p>
+  <p>Last name <?= $jClient->lastName; ?></p>
+  <p>Email <?= $jClient->email; ?></p>
+
+  <h1>Transfer</h1>
+  <form id="frmTransfer">
+    <input name="txtTransferToPhone" id="txtTransferToPhone" type="text" placeholder="transfer to phone">
+    <input name="txtTransferAmount" id="txtTransferAmount" type="text" placeholder="transfer amount">
+    <button>transfer</button>
+  </form>
+
+
+<?php 
+  $sLinkToScript = '<script src="js/profile.js"></script>';
+  require_once 'bottom.php'; 
+?>
 
 
 <!-- {
