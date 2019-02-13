@@ -8,37 +8,71 @@
     }
     
     $jData = $jData->data;
-  foreach( $jData as $sKey=>$jClient ){
+    foreach( $jData as $sKey=>$jClient ){
     // echo $sKey.json_encode($jClient);
-  }
-
-  echo checkCpr('011396-1345');
+    }
 
   // gender: fem 0, male 1
-  function checkCpr($cpr)
-  {
-      // remove spaces and uppercase it
-      $preg = "/^[0-3][0-9][0-1]\d{3}-\d{4}?/";
-      if (preg_match($preg, $cpr)) {
-          $cpr           = str_replace('-', '', $cpr);
-          $y = substr($cpr, -1);
-          switch ($gender) {
-          case 'M':
-              $genderOK = (($y % 2) == 1);
-              break;
-          case 'F':
-              $genderOK = (($y % 2) == 0);
-              break;
-          default:
-              $genderOK = true;
-              break;
-          }
-          return $genderOK;
-      } else {
-          return false;
-      }
+
+  function sendResponse($bStatus, $iLineNumber){
+    echo '{"status": '.$bStatus.', "code": '.$iLineNumber.'}';
+    exit;
   }
-  echo 'x';
+
+
+
+  // ******************************************************************
+
+  
+  $sCpr = $_POST['txtLoginCpr'] ?? '';
+  if( empty($sCpr) ) { sendResponse(0, __LINE__); }
+  if( ! validateCpr($sCpr) ) { sendResponse(0, __LINE__); }
+
+  function validateCpr($sCpr){
+
+    if( ! ctype_digit($sCpr) ) { sendResponse(0, __LINE__); return false; }
+    if( strlen($sCpr) != 10 ) { sendResponse(0, __LINE__); return false; }
+
+    $sCprMonth = substr($sCpr, 2, -6); 
+    $sCprDay = substr($sCpr, 0, -8);
+    $sCprYear = substr($sCpr, 4, -4);
+
+    switch($sCprMonth){
+      case 1:
+      case 3:
+      case 5:
+      case 7:
+      case 8:
+      case 10:
+      case 12:
+        // echo '31 days in the month';
+        if( $sCprDay > 31 ) { sendResponse(0, __LINE__); return false; }
+        break;
+      case 2:
+        if( $sCprYear%4 == 0 ){ // if it's leap year feb 29 days
+          if( $sCprDay > 29 ) { 
+            sendResponse(0, __LINE__); return false; 
+            }
+          } else {
+          if( $sCprDay > 28 ) { 
+            // echo 'ERROR: max 28 days'; 
+            sendResponse(0, __LINE__); return false; 
+            }
+          }
+        break;
+      case 4:
+      case 6:
+      case 9:
+      case 11:
+        // echo '30 days in the month';
+        if( $sCprDay > 30 ) { sendResponse(0, __LINE__); return false; }
+        break;
+      default:
+        echo 'month does not exist';
+    }
+    sendResponse(1, __LINE__);
+    return true;
+  }
 
 
 
