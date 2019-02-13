@@ -23,6 +23,9 @@
   // SUCCESS
   session_start();
   $_SESSION['sUserId'] = $sPhone;
+  $_SESSION['sUsername'] = $jInnerData->$sPhone->name;
+  $_SESSION['sLastName'] = $jInnerData->$sPhone->lastName;
+  $_SESSION['sEmail'] = $jInnerData->$sPhone->email;
   sendResponse(1, __LINE__);
 
 

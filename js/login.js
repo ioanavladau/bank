@@ -18,12 +18,14 @@ $("#frmLogin").submit(function(){
       });
       return;
     }
+
+    location.href = "profile";
   
-    swal({
-      title: "CONGRATS!", 
-      text: "You have logged in",
-      icon: "success",
-    });
+    // swal({
+    //   title: "CONGRATS!", 
+    //   text: "You have logged in",
+    //   icon: "success",
+    // });
   })
   .fail(()=>{
     console.log("error");
