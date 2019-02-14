@@ -19,9 +19,13 @@ if( !ctype_digit($sPhone)  ){ sendResponse(-1, __LINE__, 'Phone can only contain
 
 // Validate amount
 $iAmount = $_GET['amount'] ?? '';
+//echo $iAmount;
+$sLoggedPhone = $_SESSION['sUserId'];
+// $sLoggedPhoneJson = json_decode($sLoggedPhone);
 
 $sData = file_get_contents('../data/clients.json');
 $jData = json_decode( $sData );
+// echo $sData;
 
 if( $jData == null){ sendResponse(-1, __LINE__, 'Cannot convert data to JSON');  }
 
@@ -34,7 +38,6 @@ if( !$jInnerData->$sPhone ){
   foreach( $jListOfBanks as $sKey => $jBank ){
     // echo $jBank->url;
     // echo $jBank->key;
-    // $sUrl = $jBank->url.'/apis/api-handle-transaction?phone='.$sPhone.'&amount='.$iAmount;
     $sUrl = $jBank->url.'/apis/api-handle-transaction?phone='.$sPhone.'&amount='.$iAmount;
     // echo $sUrl.'<br>';
     $sBankResponse =  file_get_contents($sUrl);
@@ -43,34 +46,31 @@ if( !$jInnerData->$sPhone ){
     if( $jBankResponse->status == 1 && 
         $jBankResponse->code && 
         $jBankResponse->message ){ 
-          sendResponse( 1, __LINE__ , $jBankResponse->message );
+          $jInnerData->$sLoggedPhone->balance -= $iAmount;
+          $sData = json_encode($jData);
+          file_put_contents('https://ioanavladau.com/bank/data/clients.json', $sData);
+          sendResponse( 1, __LINE__ , $jBankResponse->message);
     }
 
   }
   sendResponse( 2, __LINE__ , 'Phone does not exist' );
 }
 
+// $jInnerData->$sLoggedPhoneJson->balance -= $iAmount;
+
+
 
 sendResponse( 1, __LINE__ , 'Phone registered locally'  );
 // Continue transfering the money
 // Take money from the logged user
-// Give it to the corresponding phone  
+// Give it to the corresponding phone 
 
-
-
-// getListOfBanksFromCentralBank();
-
-// **************************************************
 function sendResponse($iStatus, $iLineNumber, $sMessage){
-  echo '{"status":'.$iStatus.', "code":'.$iLineNumber.',"message":"'.$sMessage.'"}';
-  exit;
+    echo '{"status":'.$iStatus.', "code":'.$iLineNumber.',"message":"'.$sMessage.'"}';
+    exit;
 }
-
-// **************************************************
 function fnjGetListOfBanksFromCentralBank(){
-  // get the list of banks
-  $sData = file_get_contents('https://ecuaguia.com/central-bank/api-get-list-of-banks.php?key=1111-2222-3333');
-  return json_decode($sData);
+    //get the listof banks
+    $sData = file_get_contents('https://ecuaguia.com/central-bank/api-get-list-of-banks.php?key=1111-2222-3333');
+    return json_decode($sData);
 }
-
-
