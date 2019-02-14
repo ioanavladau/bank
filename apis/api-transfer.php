@@ -1,6 +1,7 @@
 <?php
 
 ini_set('display_errors', 0);
+ini_set('user_agent', 'any');
 
 // AJAX!
 // constrain it for logged users
@@ -35,31 +36,14 @@ if( ! $jInnerData->$sPhone ){
   // loop through the list
   // connect to each bank
 
-
-  $agent= 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36';
-
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-  curl_setopt($ch, CURLOPT_VERBOSE, true);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_USERAGENT, $agent);
-
   foreach( $jListOfBanks as $sKey => $jBank ){
     // echo $jBank->url;
     // echo $jBank->key;
     $sUrl = $jBank->url.'/apis/api-test.php';
 
-    curl_setopt($ch, CURLOPT_URL, $sUrl);
-    $result=curl_exec($ch);
-    echo $result.'<div> </div>';
-
-    // echo $sUrl2;
-    // echo file_get_contents($sUrl2);
-
-    // echo $sUrl;
+    // echo "<div>$sUrl</div>";
+    echo file_get_contents($sUrl);
     // if( strpos($sUrl, 'https') !== false ){
-      // echo "<div>$sUrl</div>";
-      // echo file_get_contents($sUrl);
     // }
   }
 
