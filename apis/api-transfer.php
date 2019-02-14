@@ -12,16 +12,20 @@ if( !isset($_SESSION['sUserId']) ) { // or !isset($_SESSION['sUserId'])
 
 // $sPhoneToCheck = $_GET['phone'] || '';
 if(empty($_GET['phone'])){ sendResponse(-1, __LINE__, 'Phone is missing'); }
-
 if(empty($_GET['amount'])){ sendResponse(-1, __LINE__, 'Amount is missing'); }
 
 $sPhone = $_GET['phone'] ?? '';
 if( strlen($sPhone) != 8 ) { sendResponse(-1, __LINE__, 'Phone must be 8 characters in length'); }
 if( ctype_digit($sPhone) == false ) { sendResponse(-1, __LINE__, 'Phone can only be numbers'); }
 
-$sPhone = $_GET['phone'] ?? '';
+$sAmount = $_GET['amount'] ?? '';
 if( strlen($sPhone) != 8 ) { sendResponse(-1, __LINE__, 'Phone must be 8 characters in length'); }
 if( ctype_digit($sPhone) == false ) { sendResponse(-1, __LINE__, 'Phone can only be numbers'); }
+
+// validate amount
+$iAmount = $_GET['amount'] ?? '';
+
+
 
 
 $sData = file_get_contents('../data/clients.json');
@@ -39,16 +43,19 @@ if( ! $jInnerData->$sPhone ){
   foreach( $jListOfBanks as $sKey => $jBank ){
     // echo $jBank->url;
     // echo $jBank->key;
-    $sUrl = $jBank->url.'/apis/api-test.php';
-
+    $sUrl = $jBank->url.'/apis/api-handle-transaction?phone='.$sPhone; // expand code with amount
     // echo "<div>$sUrl</div>";
-    echo file_get_contents($sUrl);
-    // if( strpos($sUrl, 'https') !== false ){
-    // }
+    $sBankResponse = file_get_contents($sUrl);
+    $jBankResponse = json_decode($sBankResponse);
+    if( $jBankResponse->status == 1 && 
+        $jBankResponse->code && 
+        $jBankResponse->message ){
+          sendResponse(1, __LINE__, $jBankResponse->message );
+          // if sendResponse did not have exit, we should have exited
+    }
   }
-
-
-  exit();
+  
+  sendResponse(2, __LINE__, 'Phone does not exist' );
 }
 
 sendResponse(1, __LINE__, 'Phone registered locally');
