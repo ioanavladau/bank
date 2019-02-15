@@ -20,7 +20,7 @@ if( !ctype_digit($sPhone)  ){ sendResponse(-1, __LINE__, 'Phone can only contain
 // Validate amount
 $iAmount = $_GET['amount'] ?? '';
 //echo $iAmount;
-$sLoggedPhone = $_SESSION['sUserId'];
+// $sLoggedPhone = $_SESSION['sUserId'];
 // $sLoggedPhoneJson = json_decode($sLoggedPhone);
 
 $sData = file_get_contents('../data/clients.json');
@@ -46,9 +46,9 @@ if( !$jInnerData->$sPhone ){
     if( $jBankResponse->status == 1 && 
         $jBankResponse->code && 
         $jBankResponse->message ){ 
-          $jInnerData->$sLoggedPhone->balance -= $iAmount;
-          $sData = json_encode($jData);
-          file_put_contents('https://ioanavladau.com/bank/data/clients.json', $sData);
+          // $jInnerData->$sLoggedPhone->balance -= $iAmount;
+          // $sData = json_encode($jData);
+          // file_put_contents('https://ioanavladau.com/bank/data/clients.json', $sData);
           sendResponse( 1, __LINE__ , $jBankResponse->message);
     }
 

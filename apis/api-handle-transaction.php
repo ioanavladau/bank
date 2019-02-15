@@ -11,7 +11,7 @@ if($jData == null){
 $jInnerData = $jData->data;
 
 $sPhoneFromOtherServer = $_GET['phone'];
-$iAmountToTransfer = $_GET['amount'];
+$iAmountFromOtherServer = $_GET['amount'];
 
 
 
@@ -20,24 +20,17 @@ if( !$jInnerData->$sPhoneFromOtherServer ){
     fnvSendResponse(0, __LINE__, "Phone not registered in BANK VLADAU");
 }
 
-
 // echo $jInnerData->$sPhoneFromOtherServer->balance;
 // exit;
-$jInnerData->$sPhoneFromOtherServer->balance += $iAmountToTransfer;
-
-// $jInnerData->$_SESSION['sUserId']->balance -= $iAmountToTransfer;
+$jInnerData->$sPhoneFromOtherServer->balance += $iAmountFromOtherServer;
 
 $sData = json_encode($jData);
+file_put_contents('../data/clients.json', $sData);
 
-// file_put_contents('../data/clients.json', $sData);
-
-
-$filename = '../data/clients.json';
-$writable = ( is_writable($filename) ) ? TRUE : chmod($filename, 0755);
-if ( !$writable ) {
-    echo "BIG FAIL";
-}
-    file_put_contents($filename, $sData);
+// $filename = '../data/clients.json';
+// $writable = ( is_writable($filename) ) ? TRUE : chmod($filename, 0755);
+// if ( !$writable ) { echo "BIG FAIL"; }
+file_put_contents($filename, $sData);
 
 
 

@@ -1,1 +1,34 @@
-{"data":{"20000000":{"name":"aa","lastName":"AA","email":"a@a.com","password":"$2y$10$jHHCZZhe75rZ7XHN8Lpdv.Dypq2Vj72j\/wFC8SHNpn3j6v2iqXUEG","cpr":"1234567890","balance":-15,"accounts":{"5c63e5dfd585d":{"balance":0}},"transactions":{}},"20000001":{"name":"bb","lastName":"BB","email":"b@b.com","password":"$2y$10$ZTOcHa\/nEnmzxQwfIB7ZkevUS.u72v58o.djAI\/ZDJnZMdit6GPiS","cpr":"1234567890","balance":0,"accounts":{"5c63e5ec2e20d":{"balance":0}},"transactions":{}},"20000002":{"name":"cc","lastName":"CC","email":"c@c.com","password":"$2y$10$ow7lNuEZXqhT308ZCoYXLebgPbUSeUnto4zOl7xU\/8eY3d97Splgi","cpr":"1234567890","balance":0,"accounts":{"5c63e5f5ed22f":{"balance":0}},"transactions":{}}}}
+{
+  "data": {
+    "20000000": {
+      "name": "aa",
+      "lastName": "AA",
+      "email": "a@a.com",
+      "password": "$2y$10$jHHCZZhe75rZ7XHN8Lpdv.Dypq2Vj72j/wFC8SHNpn3j6v2iqXUEG",
+      "cpr": "1234567890",
+      "balance": 100,
+      "accounts": { "5c63e5dfd585d": { "balance": 0 } },
+      "transactions": {}
+    },
+    "20000001": {
+      "name": "bb",
+      "lastName": "BB",
+      "email": "b@b.com",
+      "password": "$2y$10$ZTOcHa/nEnmzxQwfIB7ZkevUS.u72v58o.djAI/ZDJnZMdit6GPiS",
+      "cpr": "1234567890",
+      "balance": 0,
+      "accounts": { "5c63e5ec2e20d": { "balance": 0 } },
+      "transactions": {}
+    },
+    "20000002": {
+      "name": "cc",
+      "lastName": "CC",
+      "email": "c@c.com",
+      "password": "$2y$10$ow7lNuEZXqhT308ZCoYXLebgPbUSeUnto4zOl7xU/8eY3d97Splgi",
+      "cpr": "1234567890",
+      "balance": 0,
+      "accounts": { "5c63e5f5ed22f": { "balance": 0 } },
+      "transactions": {}
+    }
+  }
+}

@@ -1,3 +1,11 @@
+// self invoking function
+// (function fnvGetBalance() {
+//   setInterval(()=>{
+//     console.log('x');
+//   }, 1000);
+// }())
+
+
 $("#frmTransfer").submit(()=>{
 
   $.ajax({
@@ -39,3 +47,44 @@ $("#frmTransfer").submit(()=>{
   
   return false;
 })
+
+
+
+
+// **************************************************
+
+// Talk to the server and get the balance of the logged user
+// self invoking function
+
+
+// fnvGetBalance();
+function fnvGetBalance() {
+  var money = new Audio('money.mp3');
+  
+  setInterval(()=>{
+    
+    $.ajax({
+      method: "GET",
+      url: 'apis/api-get-balance',
+      // it adds a timestamp to the URL. We need cache: false to get new balance
+      cache: false
+    })
+    .done(( sBalance )=>{
+      console.log(sBalance);
+      console.log($('#lblBalance').text());
+      if( sBalance != $('#lblBalance').text() ){
+        $('#lblBalance').text(sBalance);
+        money.play();
+      }
+    }).fail(()=>{
+
+    });
+
+  }, 2000);
+};
+
+fnvGetBalance();
+
+// PHP doesn't have web sockets, but node.js does
+// eating up the RAM
+// 

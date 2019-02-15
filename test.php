@@ -1,28 +1,23 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <button id="btnPlay">play</button>
 
-ini_set('display_errors', 0);
+  <script>
 
-// $jClient->name = 'A';
-// $jTransaction->amount = 10;
-// $jClient->transactions = $jTransaction;
-// echo json_encode($jClient);
+    setTimeout(() => {
+      let money = new Audio('money.mp3');
+      money.play();
+    }, 3000);
 
-$jClient->name = "a";
-echo $jClient->name;
-if( ! $jClient->price ) { echo 'NO PRICE'; }
-
-// $aLetters = [];
-// array_push($aLetters, "a", "b", "c");
-// associative array - based on key values
-// $aLettersTest['one'] = "a";
-// $aLettersTest['two'] = "b";
-// if you encode an associative array, PHP returns JSON
-// echo json_encode($aLettersTest);
-
-
-
-// tunnel KEA website 
-// $sData = file_get_contents('https://kea.dk');
-// $sData = str_replace('Åbent hus', 'Mac pro for kea students now only 2000 kr', $sData);
-// echo $sData;
-
+    
+  </script>
+</body>
+</html>

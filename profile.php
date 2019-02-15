@@ -19,10 +19,11 @@ require_once 'top.php';
 ?>
 
   <h1>PROFILE</h1>
-  <p>Phone: <?= $sUserId; ?></p>
   <p>Name: <?= $jClient->name; ?></p>
-  <p>Last name <?= $jClient->lastName; ?></p>
-  <p>Email <?= $jClient->email; ?></p>
+  <p>Last name: <?= $jClient->lastName; ?></p>
+  <p>Email: <?= $jClient->email; ?></p>
+  <p>Phone: <?= $sUserId; ?></p>
+  <p>Balance: <span id="lblBalance"><?= $jClient->balance; ?></span> </p>
 
   <h1>Transfer</h1>
   <form id="frmTransfer">
