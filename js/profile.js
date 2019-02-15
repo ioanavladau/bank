@@ -73,6 +73,13 @@ function fnvGetBalance() {
       console.log(sBalance);
       console.log($('#lblBalance').text());
       if( sBalance != $('#lblBalance').text() ){
+
+      swal({
+        title: "YOU HAVE MORE MONEY!", 
+        text: "You got money",
+        icon: "success",
+      });
+
         $('#lblBalance').text(sBalance);
         money.play();
       }
@@ -88,3 +95,26 @@ fnvGetBalance();
 // PHP doesn't have web sockets, but node.js does
 // eating up the RAM
 // 
+
+/*
+
+"transactionsNotRead": {
+  "ID1": {
+    "date": 018301213,
+    "amount": 50, 
+    "message": "Thanks",
+    "name": "AA",
+    "lastName": "AAAA"
+  }
+},
+"transactions": {
+  "ID1": {
+    "date": 018301213,
+    "amount": 50, 
+    "message": "Thanks",
+    "name": "AA",
+    "lastName": "AAAA"
+  }
+}
+
+*/

@@ -13,39 +13,30 @@ $jInnerData = $jData->data;
 $sPhoneFromOtherServer = $_GET['phone'];
 $iAmountFromOtherServer = $_GET['amount'];
 
-
-
-
 if( !$jInnerData->$sPhoneFromOtherServer ){
     fnvSendResponse(0, __LINE__, "Phone not registered in BANK VLADAU");
 }
 
-// echo $jInnerData->$sPhoneFromOtherServer->balance;
-// exit;
 $jInnerData->$sPhoneFromOtherServer->balance += $iAmountFromOtherServer;
 
 $sData = json_encode($jData);
 file_put_contents('../data/clients.json', $sData);
 
-// $filename = '../data/clients.json';
-// $writable = ( is_writable($filename) ) ? TRUE : chmod($filename, 0755);
-// if ( !$writable ) { echo "BIG FAIL"; }
-file_put_contents($filename, $sData);
-
-
-
-
-
 
 fnvSendResponse(1, __LINE__, "Transaction success with BANK VLADAU");
 
-//************************/
+
+
+
+
+// ************************************************************************
+
 function fnvSendResponse( $iStatus, $iLineNumber, $sMessage ){
     echo '{"status": '.$iStatus.', "code": '.$iLineNumber.', "message": "'.$sMessage.'"}';
     exit;
 }
 
-//get tthe amount and the message and 
+//get the amount and the message and 
 //set the new balance to the phone number, 
 //then reply to the server saying, that the transaction was successful
 
