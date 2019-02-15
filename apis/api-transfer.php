@@ -10,6 +10,7 @@ if( !isset($_SESSION['sUserId'] ) ){
 
 if( empty( $_GET['phone'] ) ){ sendResponse(-1, __LINE__, 'Phone missing'); }
 if( empty( $_GET['amount'] ) ){ sendResponse(-1, __LINE__, 'Amount is missing'); }
+// if( empty( $_GET['message'] ) ){ sendResponse(-1, __LINE__, 'Message is missing'); }
 
 
 
@@ -17,11 +18,14 @@ $sPhone = $_GET['phone'] ?? '';
 if( strlen($sPhone) != 8 ){ sendResponse(-1, __LINE__, 'Phone must be 8 characters in length'); }
 if( !ctype_digit($sPhone)  ){ sendResponse(-1, __LINE__, 'Phone can only contain numbers');  }
 
-// Validate amount
+// TODO: Validate amount
 $iAmount = $_GET['amount'] ?? '';
 //echo $iAmount;
 // $sLoggedPhone = $_SESSION['sUserId'];
 // $sLoggedPhoneJson = json_decode($sLoggedPhone);
+
+// TODO: Validate the message
+$sMessage = $_GET['message'] ?? '';
 
 $sData = file_get_contents('../data/clients.json');
 $jData = json_decode( $sData );
@@ -38,7 +42,7 @@ if( !$jInnerData->$sPhone ){
   foreach( $jListOfBanks as $sKey => $jBank ){
     // echo $jBank->url;
     // echo $jBank->key;
-    $sUrl = $jBank->url.'/apis/api-handle-transaction?phone='.$sPhone.'&amount='.$iAmount;
+    $sUrl = $jBank->url.'/apis/api-handle-transaction?phone='.$sPhone.'&amount='.$iAmount.'&message='.$sMessage;
     // echo $sUrl.'<br>';
     $sBankResponse =  file_get_contents($sUrl);
     $jBankResponse = json_decode($sBankResponse);

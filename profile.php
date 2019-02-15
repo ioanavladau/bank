@@ -29,9 +29,44 @@ require_once 'top.php';
   <form id="frmTransfer">
     <input name="txtTransferToPhone" id="txtTransferToPhone" type="text" placeholder="transfer to phone">
     <input name="txtTransferAmount" id="txtTransferAmount" type="text" placeholder="transfer amount">
+    <input name="txtTransferMessage" id="txtTransferMessage" type="text" placeholder="transfer message">
     <button>transfer</button>
   </form>
 
+  <h1>Transactions</h1>
+  <table>
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>DATE</td>
+        <td>AMOUNT</td>
+        <td>NAME</td>
+        <td>LAST NAME</td>
+        <td>PHONE</td>
+        <td>MESSAGE</td>
+      </tr>
+    </thead>
+    <tbody id="lblTransactions">
+
+      <?php
+        foreach( $jClient->transactions as $sTransactionId=> $jTransaction ){
+          echo "
+            <tr>
+              <td>$sTransactionId</td>
+              <td>$jTransaction->date</td>
+              <td>$jTransaction->amount</td>
+              <td>$jTransaction->name</td>
+              <td>$jTransaction->lastName</td>
+              <td>$jTransaction->fromPhone</td>
+              <td>$jTransaction->message</td>
+            </tr>
+          ";
+        }
+
+
+      ?>
+    </tbody>
+  </table>
 
 <?php 
   $sLinkToScript = '<script src="js/profile.js"></script>';

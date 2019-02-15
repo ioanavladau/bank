@@ -15,7 +15,8 @@ $("#frmTransfer").submit(()=>{
     // if you already pointed to the API, it will be cached
     data: { 
       "phone": $("#txtTransferToPhone").val(),
-      "amount": $("#txtTransferAmount").val()
+      "amount": $("#txtTransferAmount").val(),
+      "message": $("#txtTransferMessage").val()
     }, // same thing with api-is-phone-registered-locally.php?phone=1234555'
     cache: false,
     dataType: "JSON"
@@ -70,8 +71,8 @@ function fnvGetBalance() {
       cache: false
     })
     .done(( sBalance )=>{
-      console.log(sBalance);
-      console.log($('#lblBalance').text());
+      // console.log(sBalance);
+      // console.log($('#lblBalance').text());
       if( sBalance != $('#lblBalance').text() ){
 
       swal({
@@ -87,7 +88,51 @@ function fnvGetBalance() {
 
     });
 
-  }, 2000);
+
+    // TRANSACTIONS 
+    $.ajax({
+      method: "GET",
+      url: 'apis/api-get-transactions-not-read',
+      // it adds a timestamp to the URL. We need cache: false to get new balance
+      cache: false,
+      dataType: "JSON"
+    })
+    .done(( jTransactions )=>{
+      // console.log(jData);
+      for( let jTransactionKey in jTransactions ){
+        console.log(jTransactionKey);
+        // the key can start with a number
+        // if you have a key that is not really valid, use square brackets
+        let jTransaction = jTransactions[jTransactionKey];
+        let date = jTransaction.date;
+        let amount = jTransaction.amount;
+        let name = jTransaction.name;
+        let lastName = jTransaction.lastName;
+        let fromPhone = jTransaction.fromPhone;
+        let message = jTransaction.message;
+
+        let sTransactionTr = `
+            <tr>
+              <td>${jTransactionKey}</td>
+              <td>${date}</td>
+              <td>${amount}</td>
+              <td>${name}</td>
+              <td>${lastName}</td>
+              <td>${fromPhone}</td>
+              <td>${message}</td>
+             </tr>
+        `
+        // prepend, not append, to push new transactions down
+        $("#lblTransactions").prepend(sTransactionTr);
+      }
+    }).fail(()=>{
+
+    });
+
+
+
+
+  }, 3000);
 };
 
 fnvGetBalance();

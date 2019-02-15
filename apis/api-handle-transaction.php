@@ -11,7 +11,11 @@ if($jData == null){
 $jInnerData = $jData->data;
 
 $sPhoneFromOtherServer = $_GET['phone'];
+echo $sPhoneFromOtherServer;
 $iAmountFromOtherServer = $_GET['amount'];
+$sMessageFromOtherServer = $_GET['message'];
+
+// TODO: validate
 
 if( !$jInnerData->$sPhoneFromOtherServer ){
     fnvSendResponse(0, __LINE__, "Phone not registered in BANK VLADAU");
@@ -19,14 +23,28 @@ if( !$jInnerData->$sPhoneFromOtherServer ){
 
 $jInnerData->$sPhoneFromOtherServer->balance += $iAmountFromOtherServer;
 
+// $jTransaction is one transaction
+$jTransaction->date = time(); 
+$jTransaction->amount = $iAmountFromOtherServer;
+$jTransaction->name = 'AA';
+$jTransaction->lastName = 'AAAA';
+$jTransaction->fromPhone = $sPhoneFromOtherServer;
+$jTransaction->message = $sMessageFromOtherServer;
+
+$sTransactionUniqueId = uniqid();
+
+$jInnerData->$sPhoneFromOtherServer->transactionsNotRead->$sTransactionUniqueId = $jTransaction;
+$jInnerData->$sPhoneFromOtherServer->transactions->$sTransactionUniqueId = $jTransaction;
+
+
+
+
 $sData = json_encode($jData);
 file_put_contents('../data/clients.json', $sData);
 
 
+
 fnvSendResponse(1, __LINE__, "Transaction success with BANK VLADAU");
-
-
-
 
 
 // ************************************************************************

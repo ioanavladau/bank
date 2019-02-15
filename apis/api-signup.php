@@ -80,6 +80,7 @@
   $jClient->accounts->$sAccountId = $jAccount;
 
   $jClient->transactions = new stdClass();
+  $jClient->transactionsNotRead = new stdClass();
 
   // add all client data to the key which is phone number
   $jInnerData->$sPhone = $jClient;

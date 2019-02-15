@@ -8,7 +8,17 @@
       "cpr": "1234567890",
       "balance": 100,
       "accounts": { "5c63e5dfd585d": { "balance": 0 } },
-      "transactions": {}
+      "transactions": {},
+      "transactionsNotRead": {
+        "ID1": {
+          "date": "1231231",
+          "amount": 50, 
+          "message": "Thanks",
+          "name": "AA",
+          "lastName": "AAAA",
+          "fromPhone": "7987546"
+        }
+      }
     },
     "20000001": {
       "name": "bb",
@@ -18,7 +28,8 @@
       "cpr": "1234567890",
       "balance": 0,
       "accounts": { "5c63e5ec2e20d": { "balance": 0 } },
-      "transactions": {}
+      "transactions": {},
+      "transactionsNotRead": {}
     },
     "20000002": {
       "name": "cc",
@@ -28,7 +39,8 @@
       "cpr": "1234567890",
       "balance": 0,
       "accounts": { "5c63e5f5ed22f": { "balance": 0 } },
-      "transactions": {}
+      "transactions": {},
+      "transactionsNotRead": {}
     }
   }
 }
